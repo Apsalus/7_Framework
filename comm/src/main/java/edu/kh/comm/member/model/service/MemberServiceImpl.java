@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService{
 
 		Member loginMember = dao.login(inputMember);
 		
-		return null;
+		return loginMember;
 		
 		// Connection을 얻어오거나 / 반환하거나
 		// 트랜잭션 처리를 하는 구문을 작성하지 않아도
