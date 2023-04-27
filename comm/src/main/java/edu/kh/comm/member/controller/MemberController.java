@@ -12,14 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.google.gson.Gson;
 
 import edu.kh.comm.member.model.service.MemberService;
 import edu.kh.comm.member.model.service.MemberServiceImpl;
@@ -64,10 +68,10 @@ public class MemberController {
 	 * 
 	 * [작성법에 따른 해석]
 	 * 
-	 * 1) @RequestMappin("url")
+	 * 1) @RequestMapping("url")
 	 * --> 요청 방식(GET/POST) 관계없이 url이 일치하는 요청 처리
 	 * 
-	 * 2) @RequestMappint(value = "url", method = RequestMethod.GET | POST)
+	 * 2) @RequestMapping(value = "url", method = RequestMethod.GET | POST)
 	 * --> 요청 방식에 따라 요청 처리함
 	 *
 	 * ** 메서드 레벨에서 GET/POST 방식을 구분하여 매핑할 경우 **
@@ -230,4 +234,85 @@ public class MemberController {
 		
 		return "member/signUp";
 	}
+	
+	// 회원가입
+	@PostMapping("/signUp")
+	public String signUpForm( /* @ModelAttribute */ Member inputMember) {
+		
+		logger.info("로그인 기능 수행됨");
+		
+		
+		Member signUpMember = service.signUp(inputMember);
+		
+		
+		return "common/main";
+	}
+	
+	
+	// 이메일 중복 검사
+	@ResponseBody // ajax 응답 시 사용!
+	@GetMapping("/emailDupCheck")	
+	// public String emailDupCheck( @RequestParam("memberEmail")String memberEmail ) { // 파라미터 key값과 저장하려는 변수 명이 같으면 생략가능! 
+	public int emailDupCheck( String memberEmail ) {	
+		// 컨트롤러에서 반환되는 값은 forward 또는 redirect를 위한 경로인 경우
+		// -> 반홚되는 값은 경로로 인식됨
+		
+		// -> 이를 해결하기 위한 어노테이션 @ResponseBody 가 존재함
+		// @ResponseBody : 반환되는 값을 응답의 몸통(body)에 추가하여
+		//					이전 요청 주소로 돌아감
+		// -> 컨트롤러에서 반환되는 값이 경로가 아닌 "값 자체"로 인식됨
+		
+		
+		return service.emailDupCheck(memberEmail);
+	}
+	@ResponseBody
+	@GetMapping("/nicknameDupCheck")
+	public int nicknameDupCheck( String memberNickname) {
+		
+		int result = service.nicknameDupCheck(memberNickname); 
+		
+		return result; 
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectOne")
+	public String selectOne(String memberEmail) {
+		
+		Member selectOneMember = service.selectOne(memberEmail);
+		
+		Gson gson = new Gson();
+		  
+		String Member = gson.toJson(selectOneMember);
+		
+		 
+		return Member;
+		// return gson.toJson(service.selectOne(memberEmail));
+	}
+	
+	/* 스프링 예외 처리 방법 (3가지, 중복 사용 가능)
+	 * 
+	 * 1 순위 : 메서드 별로 예외처리 (try-catch / throws)
+	 * 
+	 * 2 순위 : 하나의 컨트롤러에서 발생하는 예외를 모아서 처리
+	 * 			-> @ExceptionHadler (메서드에 작성)
+	 * 
+	 * 3 순위 : 전역(웹 애플리케이션)에서 발생하는 예외를 모아서 처리
+	 * 			-> @ControllerAdvice (클래스에 작성)
+	 * 
+	 * 
+	 * */
+	
+	// 회원 컨트롤러에서 발생하는 모든 예외를 모아서 처리
+//	@ExceptionHandler(Exception.class)
+//	public String exceptionHandler(Exception e, Model model) {
+//		e.printStackTrace();
+//		
+//		model.addAttribute("errorMessage", "서비스 이용 중 문제가 발생했습니다.");
+//		model.addAttribute("e", e);
+//		
+//		return "common/error";
+//	}
+//	
+//	
+	
 }

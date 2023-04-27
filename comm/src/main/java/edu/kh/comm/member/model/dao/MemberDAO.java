@@ -49,5 +49,37 @@ public class MemberDAO {
 		
 		return loginMember;
 	}
+	
+	
+	/**
+	 * @param memberEmail
+	 * @return
+	 */
+	public int emailDupCheck(String memberEmail) {
+		
+		return sqlSession.selectOne("memberMapper.emailDupCheck",memberEmail);
+	}
+
+
+	/**
+	 * @param memberNick
+	 * @return
+	 */
+	public int nicknameDupCheck(String memberNickname) {
+
+		return sqlSession.selectOne("memberMapper.nicknameDupCheck",memberNickname);
+	}
+
+
+	public Member signUp(Member inputMember) {
+		
+		return sqlSession.selectOne("memberMapper.signUp", inputMember);
+	}
+
+
+	public Member selectOne(String memberEmail) {
+		
+		return sqlSession.selectOne("memberMapper.selectOne", memberEmail);
+	}
 
 }

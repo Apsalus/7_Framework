@@ -66,17 +66,17 @@
                     </div>
 
                     <div class="myPage-row info-address">
-                        <input type="text" name="memberAddress"  value="${addr[0]}"  maxlength="6">
+                        <input type="text" name="updateAddress"  value="${addr[0]}"  maxlength="6">
 
                         <button type="button" id="info-address-btn">검색</button>
                     </div>
 
                     <div class="myPage-row info-address">
-                        <input type="text" name="memberAddress" value="${addr[1]}">
+                        <input type="text" name="updateAddress" value="${addr[1]}">
                     </div>
                     
                     <div class="myPage-row info-address">
-                        <input type="text" name="memberAddress" value="${addr[2]}">
+                        <input type="text" name="updateAddress" value="${addr[2]}">
                     </div>
 
                     <button id="info-update-btn">수정하기</button>

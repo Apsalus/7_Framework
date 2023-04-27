@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KH 커뮤니티</title>
 
-    <link rel="stylesheet" href="resources/css/main-style.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/main-style.css">
 
     <script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
 
