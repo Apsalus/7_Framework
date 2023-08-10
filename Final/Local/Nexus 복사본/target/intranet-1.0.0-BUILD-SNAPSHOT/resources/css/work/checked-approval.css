@@ -1,0 +1,379 @@
+/* 체크 모달창 */
+#checked-modalWrap, #check-approver-modal-wrap {
+    position: fixed;
+    z-index: 1;
+  
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+  
+  }
+
+  #check-approver-modal-wrap{
+    z-index: 7;
+    height: 120vh;
+  }
+  
+  .checked-modalBody {
+    min-width: 570px;
+    min-height: 100px;
+    max-width: 80%;
+    /* max-height: calc(100vh - 90px); */
+  
+    background: white;
+    border-radius: 10px;
+  
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    position: relative;
+    padding: 30px;
+    overflow: auto;
+    width: 80%;
+  }
+  
+  .check-modalBody.modal-open {
+    /* 모달이 열릴 때 애니메이션 효과 추가 */
+    animation: 0.35s ease-in-out 0s 1 normal forwards running modalAniOpen;
+  }
+  
+  
+  /* 모달창 나올때 애니메이션 효과 */
+  @keyframes modalAniOpen {
+  
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+  
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+  }
+  
+  .check-modalBody.modal-close {
+    /* 모달이 닫힐 때 애니메이션 효과 추가 */
+    animation: 0.35s ease-in-out 0s 1 normal forwards running modalAniClose;
+  }
+  
+  /* 모달창 닫을때 애니메이션 효과 */
+  @keyframes modalAniClose {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+  
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+  }
+
+  .checked-modal-title, .checked-preview, .checked-modal-coment, .checked-modal-approver,
+  .checked-modal-startDate, .checked-modal-endDate, .file_div, .checked-modal-taskList {
+    width: 100%;
+    /* height: 50px; */
+    line-height: 25px;
+    border: none;
+    border-radius: 5px;
+    color: var(--gray700);
+    /* background-color: var(--gray50); */
+    font-family: 'Baloo 2';
+    padding: 10px;
+    font-size: 16px;
+    list-style: none;
+  }
+
+  .checked-modal-detail {
+    width: 100%;
+    /* height: 350px; */
+    line-height: 25px;
+    border: none;
+    border-radius: 5px;
+    color: var(--gray700);
+    /* background-color: var(--gray50); */
+    font-family: 'Baloo 2';
+    padding: 10px;
+    font-size: 16px;
+    list-style: none;
+  }
+  /* work-inbox 추가사항(삭제 예정) */
+  .check-modalBody h1 {
+    color: var(--black);
+  
+    font-size: 24px;
+  }
+  
+  
+  #closeBtn {
+    float: right;
+    color: var(--black);
+  
+    cursor: pointer;
+  
+  }
+  
+  #closeBtn img {
+    width: 18px;
+    height: 18px;
+  }
+  /*********************************************/
+  
+  /* 체크 모달창 헤더 */
+  .checked-modal-header{
+    background-color: var(--gray50);
+    
+  }
+  /* 체크 모달창 헤더영역*/
+  .checked-modal-modal-headerbox{
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  /* 체크 모달창 헤더 내용 */
+  .checked-modal-headerbox-content{
+    padding: 3px 0px;
+  }
+  /* 체크 모달창 헤더 아랫부분 */
+  .checked-modal-headerbox-footer{
+    padding: 20px 0px;
+    display: flex;
+  }
+  /* 체크 모달창 헤더 아랫부분 버튼 */
+  .checked-modal-headerbox-footer button{
+    color: inherit;
+    height: 32px;
+    padding: 8px 12px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0 5px;
+  }
+  /* 체크 모달창 헤더 아랫부분 이미지*/
+  .checked-modal-headerbox-footer img{
+    width: 15px;
+  }
+  
+  #checked-closeBtn {
+    float: right;
+    padding: 10px;
+    color: var(--black);
+    cursor: pointer;
+  }
+  
+  #checked-closeBtn img {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* 모달 테이블영역 */
+  
+  .checked-modal-table-body{
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .checked-modal-table-body table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .checked-modal-table-body table th {
+    color: var(--gray600);
+    border-bottom: 1px solid var(--gray300);
+    padding-bottom: 10px;
+  }
+  
+  .checked-modal-table-body table tbody tr:nth-of-type(3n-2){
+    background-color: var(--primary100);
+    border-radius: 10px;
+  }
+  .checked-modal-table-body table tbody tr:nth-of-type(3n-1){
+    background-color: var(--primary200);
+    border-radius: 10px;
+  }
+  .checked-modal-table-body table tbody tr:nth-of-type(3n){
+    background-color: var(--primary300);
+    border-radius: 10px;
+  }
+  
+  
+  .checked-modal-table-body table td{
+    color: black;
+    padding: 20px;
+  }
+  
+  
+   /*모달 내용 스타일 */
+  .checked-modalBody p {
+    color: var(--gray400);
+  }
+  
+  .checked-modal-table-body h2{
+    margin-bottom: 20px;
+  }
+  
+  .checked-modal-detail textarea {
+    width: 100%;
+    height: 350px;
+    /* max-height: 350px; */
+  
+    background-color: var(--gray50);
+    border: 1px solid var(--gray300);
+    border-radius: 5px;
+  
+    padding: 10px;
+  
+    font-size: 16px;
+  
+    /* overflow: hidden; */
+  
+    outline: none;
+    resize: none;
+
+    white-space: pre;
+  }
+  
+  .checked-modal-coment input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray300);
+    background-color: var(--gray50);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+  }
+  
+  .checked-modal-approver input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray300);
+    border-radius: 5px;
+    background-color: var(--gray50);
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+  
+  }
+  
+  .checked-modal-checkbox{
+    margin: 20px 0px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    font-size: large;
+    align-items: center;
+  }
+  
+  #checked-modal-checkbox{
+    margin-bottom: 9px;
+    margin-right: 7px;
+    height: 18px;
+    width: 17px;
+  }
+  
+  .checked-modal-checkbox label {
+    margin-right: 0;
+  }
+  
+  .copy-btn, .print-btn{
+    cursor: pointer;
+  }
+  
+  #checked-edit-btn , #checked-cancle-btn{
+  width: 60px;
+  height: 30px;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--gray200);
+  padding-top: 5px;
+  cursor: pointer;
+  }
+  
+  #checked-cancell-btn, #checked-reject-btn{width: 60px;
+    height: 30px;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(252, 50, 50, 0.8);
+    padding-top: 5px;
+    cursor: pointer;
+  }
+  
+  #checked-success-btn, #checked-approve-btn{
+    width: 60px;
+  height: 30px;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary400);
+  padding-top: 5px;
+  cursor: pointer;
+  }
+  
+  /* 체크 모달창 확인 취소 버튼 */
+  .checked-submit-reset-btns {
+    margin-top: 20px;
+  
+    float: right;
+  }
+
+  /* 날짜 조회창 */
+  .checked-modal-startDate input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray300);
+    background-color: var(--gray50);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+  }
+  
+  .checked-modal-endDate input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray300);
+    background-color: var(--gray50);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+  }
+  
+ /* 확인 취소 버튼 */
+.work-inbox-submit-btn, .work-send-submit-btn {
+  margin-top: 20px;
+
+  float: right;
+}
+
+/* 프로젝트 과제 리스트 css */
+.modal-task-div span{
+  margin-right : 30px;
+  margin-left : 10px;
+  font-family: 'NanumSquareNeo-Variable';
+}
+
+.modal-task-div div{
+  background-color: var(--gray50);
+  padding : 8px;
+  margin : 8px;
+  border-radius: 10px;
+}
+
+.modal-task-div {
+  margin-bottom : 30px;
+}
+

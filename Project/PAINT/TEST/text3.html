@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .write-box {
+        border :1px solid #b3b3b3;
+        width: 698px;
+        height: 157px;
+        position: relative;
+    }
+    
+    .profile {
+        padding: 10px 10px;
+    }
+    
+    .upload {
+        border-top: 1px solid #b3b3b3;
+    }
+    
+    #commit {
+        border: 1px solid #454545;
+        background: #525252;
+        color: white;
+        width: 66px;
+        height: 43px;
+        float: right;
+    }
+    button{
+        padding: 5px 10px;
+        margin-left: 10px;
+    }
+    
+    
+    textarea {
+        border: none;
+        padding: 10px 10px;
+        width: 660px;
+        height: 50px;
+    }
+    
+    li {
+        list-style: none;
+        margin: 20px;
+        text-align: center;
+    }
+    
+    .comment-list {
+        float: right;
+    }
+    </style>
+</head>
+<body>
+    <form id="comment-form">
+        <div class="write-box">
+            <div class="profile"><span>ID</span></div>
+            <div class="write">
+                <textarea placeholder="주제와 무관한 댓글, 악플은 삭제될 수 있습니다" ></textarea>
+            </div>
+            <div class="upload">
+                <button id="commit">등록</button>
+            </div>
+        </div>
+    </form>
+    <ul id="comment-list"></ul>
+ 
+<script>
+const toDoForm = document.getElementById("comment-form");
+const toDoTextarea = toDoForm.querySelector("#comment-form textarea");
+const toDoList = document.getElementById("comment-list");
+const Commit = document.getElementById("commit"); 
+
+function deleteTodo (event) {
+    const li = event.target.parentElement;
+    li.remove();
+}
+
+function createTextarea(event){
+    const li = event.target.parentElement;
+    const span = li.querySelector("span");
+    const existingTextarea = li.querySelector("textarea");
+    if (existingTextarea) {
+        existingTextarea.focus();
+        return;
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = span.innerText;
+    li.insertBefore(textarea, span);
+    span.style.display = "none";
+
+    textarea.addEventListener("blur", function(){
+        span.innerText = textarea.value;
+        span.style.display = "";
+        li.removeChild(textarea);
+    });
+
+    const closeButton = document.createElement("button");
+    closeButton.innerText = "닫기";
+    closeButton.addEventListener("click", function(){
+        span.style.display = "";
+        li.removeChild(textarea);
+        li.removeChild(closeButton);
+    });
+    
+    li.appendChild(closeButton);
+
+    const deleteButton = li.querySelector("button:last-child");
+    li.removeChild(deleteButton);
+}
+
+
+function paintToDo (newTodo) {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    const button1 = document.createElement("button");
+    const button2 = document.createElement("button");
+    span.innerText = newTodo;
+    button1.innerText = "수정";
+    button2.innerText = "삭제";
+    button1.addEventListener("click",createTextarea);
+    button2.addEventListener("click", deleteTodo);
+    li.appendChild(span);
+    li.appendChild(button1);
+    li.appendChild(button2);
+    toDoList.appendChild(li);
+}
+
+function handleToDoSubmit (event) {
+    event.preventDefault();
+    const newTodo = toDoTextarea.value;
+    paintToDo(newTodo);
+    toDoTextarea.value = "";
+}
+
+toDoForm.addEventListener("submit", handleToDoSubmit);
+</script>
+</body>
+</html>
